@@ -1,0 +1,245 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport",content="width=device-width")
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/index.css')
+    script(src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js")
+    script(src="/javascripts/get_city.js")
+  body
+    nav.navbar.navbar-default(role="navigation")
+      div.container-fluid
+        div.container
+          div.navbar-header
+            a.navbar-brand(href="#") #{title}
+    div.jumbotron
+      div.container
+        form(role="form" action="/admin" method="get")
+          div.col-sm-2
+            label 性别
+            select.form-control(name='gender')
+              if query.gender == '-1'  || !query.gender
+                option(value=-1 selected) 不限
+                option(value=0) 女
+                option(value=1) 男
+              else if query.gender == 0
+                option(value=-1) 不限
+                option(value=0 selected) 女
+                option(value=1) 男
+              else if query.gender == 1
+                option(value=-1) 不限
+                option(value=0) 女
+                option(value=1 selected) 男
+          div.col-sm-2
+            label 居住省
+            select.form-control(name='province')
+              option(value=-1) 不限
+              - each one,i in provinces
+                option(value=one.name selected=query.province == one.name) #{one.name}
+          div.col-sm-2
+            label 居住市
+            select.form-control(name='city')
+              option(value=-1) 不限
+          div.col-sm-2
+            label 年龄-区间
+            if query.age 
+              input.form-control(placeholder="18-25" name="age" value=query.age)
+            else
+              input.form-control(placeholder="18-25" name="age")
+          div.col-sm-2
+            label 身高-区间
+            if query.height
+              input.form-control(placeholder="40-50" name="height" value=query.height)
+            else 
+              input.form-control(placeholder="40-50" name="height")
+          div.col-sm-2
+            label 学历
+            select.form-control(name='education')
+              - jade_education = ['大专', '本科', '硕士及以上', '高中及中专', '初中及以下']
+              if query.education == -1
+                option(value='-1' selected) 不限
+              else 
+                option(value='-1') 不限
+              each item, index in jade_education
+                option(value=item selected=query.education == item) #{item}
+          div.col-sm-2
+            label 收入
+            select.form-control(name='salary')
+              - jade_salary = ['小于2000元', '2000-5000元', '5000-10000元', '10000-20000元', '20000以上元']
+              if query.salary == -1
+                option(value='-1' selected) 不限
+              else 
+                option(value='-1') 不限
+              each item, index in jade_salary
+                option(value=item selected=query.salary == item) #{item}
+          div.col-sm-2
+            label 籍贯省
+            select.form-control(name='native_province')
+              option(value=-1) 不限
+              - each one,i in provinces
+                option(value=one.name selected=query.native_province == one.name) #{one.name}
+          div.col-sm-2
+            label 籍贯市
+            select.form-control(name='native_city')
+              option(value=-1) 不限
+          div.col-sm-2
+            label 住房情况
+            select.form-control(name='house')
+              - jade_house = ['租房', '已购房', '与父母同住', '其他']
+              if query.house == -1
+                option(value='-1' selected) 不限
+              else 
+                option(value='-1') 不限
+              each item, index in jade_house
+                option(value=item selected=query.house == item) #{item}
+          div.col-sm-2
+            label 能否接受异地恋
+            select.form-control(name='is_accept_long_distance')
+              if query.is_accept_long_distance == '-1' || !query.is_accept_long_distance
+                option(value=-1 selected) 不限
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_long_distance == '0'
+                option(value=-1) 不限
+                option(value=0 selected) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_long_distance == '1'
+                option(value=-1) 不限
+                option(value=0) 能
+                option(value=1 selected) 不能
+                option(value=2) 看情况
+              else if query.is_accept_long_distance == '2'
+                option(value=-1) 不限
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2 selected) 看情况
+          div.col-sm-2
+            label 能否接受婚前性行为
+            select.form-control(name='is_accept_sex')
+              if query.is_accept_sex == '-1' || !query.is_accept_sex
+                option(value=-1 selected) 不限
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_sex == '0'
+                option(value=-1) 不限
+                option(value=0 selected) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_sex == '1'
+                option(value=-1) 不限
+                option(value=0) 能
+                option(value=1 selected) 不能
+                option(value=2) 看情况
+              else if query.is_accept_sex == '2'
+                option(value=-1) 不限
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2 selected) 看情况
+          div.col-sm-2
+            label 用户状态
+            select.form-control(name='user_type')
+              if query.user_type == '-1' || !query.user_type
+                option(value=-1 selected) 不限
+                option(value=1) 真实用户
+                option(value=0) 假用户
+              else if query.user_type == '0'
+                option(value=-1) 不限
+                option(value=1) 真实用户
+                option(value=0 selected) 假用户
+              else if query.user_type == '1'
+                option(value=-1) 不限
+                option(value=1 selected) 真实用户
+                option(value=0) 假用户
+          div.col-sm-2
+            label vip
+            select.form-control(name='vip')
+              if query.vip == '-1' || !query.vip
+                option(value=-1 selected) 不限
+                option(value=1) vip用户
+                option(value=0) 普通用户
+              else if query.vip == '0'
+                option(value=-1) 不限
+                option(value=1) vip用户
+                option(value=0 selected) 普通用户
+              else if query.vip == '1'
+                option(value=-1) 不限
+                option(value=1 selected) vip用户
+                option(value=0) 普通用户  
+          div.col-sm-3
+            label 用户id
+            if query._id
+              input.form-control(placeholder="id" name="_id" value=query._id)
+            else 
+              input.form-control(placeholder="id" name="_id")
+          div.col-sm-3
+            label 用户name
+            if query.name
+              input.form-control(placeholder="name" name="name" value=query.name)
+            else 
+              input.form-control(placeholder="name" name="name")
+          div.col-sm-2
+            label 排序
+            select.form-control(name='sort')
+              if query.sort == 1 || !query.sort
+                option(value=1 selected) app动态跟新
+                option(value=2) 注册时间 
+              else if query.sort == 2
+                option(value=1) app动态跟新
+                option(value=2 selected) 注册时间
+          div.col-sm-2
+            label 平台
+            select.form-control(name='channelId')
+              - jade_channelId = ['In_Com', 'qihu360', 'wandoujia', 'baidu91', 'qqyyb', 'weipai', 'huawei', 'nduo', 'youmeng', 'xiaomi', 'anzhi']
+              if query.channelId == -1
+                option(value='-1' selected) 不限
+              else 
+                option(value='-1') 不限
+              each item, index in jade_channelId
+                option(value=item selected=query.channelId == item) #{item}
+          div.col-sm-2
+            div.sub-test
+              input(type="hidden" value=query.city  name="selected_city")
+              input(type="hidden" value=query.native_city name="selected_n_city")
+              button(type="submit" class="btn btn-primary btn-lg btn-block") 搜索
+          div.col-sm-3
+            label 
+            p 总数为：#{count} 个
+      div.container
+        input(type="hidden" name="next_page" value=param)
+        div.row#user_list
+          each item, index in list
+            div.col-lg-3(id="#{item._id}")
+              if item.name
+                h3 #{item.name}
+              else
+                h3 NULL
+              p.text-danger
+                a(href="/admin/detail?id=#{item._id}" target="_blank")
+                  if item.avatar
+                    img(src=item.avatar title=item.words class="img-circle" height="220px")
+                  else
+                    img(src="http://citychat1.qiniudn.com/citychat-default-null.jpg" title='没头像' class="img-circle" height="220px")
+              p #{item.age}岁 | #{item.height}cm | #{item.education}
+              p 
+                if item.photos
+                  each one,index in item.photos
+                    if index <= 5
+                      a(href=one target="_blank") 
+                        img(src=one height="45px" width="35")
+                  else
+                    img(src="http://citychat1.qiniudn.com/citychat-default-null.jpg" height="45px")
+                else
+                  img(src="http://citychat1.qiniudn.com/citychat-default-null.jpg" height="45px")
+              div.btn-group.delete_action
+                button(type="button" class="btn btn-danger user-delete" data-id="#{item._id}") 删除用户
+              if item.vip != 1
+                div.btn-group
+                  button(type="button" class="btn btn-success set_sortorder" data-id="#{item._id}") 颜值高，顶上去 ↑
+        
+          

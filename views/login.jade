@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport",content="width=device-width")
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    script(src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js")
+  body
+    div.container
+      form(class="form-signin" role="form" action="/admin/post_login" method="post")
+        h2(class="form-signin-heading" align="center") 登陆
+          input(class="form-control" placeholder="Name" required autofocus name="name")
+          input(type="password" class="form-control" placeholder="Password" required name="password")
+        button(class="btn btn-lg btn-primary btn-block" type="submit") Sign in
+      if query.error
+        h2(class="form-signin-heading" align="center")
+          p 账户或密码错误

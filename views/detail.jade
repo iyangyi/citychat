@@ -1,0 +1,190 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport",content="width=device-width")
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/index.css')
+    script(src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js")
+    script(src="/javascripts/get_city.js")
+  body
+    nav.navbar.navbar-default(role="navigation")
+      div.container-fluid
+        div.container
+          div.navbar-header
+            a.navbar-brand(href="#") #{title}
+    div.container
+      div.jumbotron
+        form(role="form" action="" method="get" id="user-detail-page")
+          p.text-danger
+              if query.avatar
+                img(src=query.avatar  class="img-circle" height="220px")
+              else
+                  img(src="http://citychat1.qiniudn.com/citychat-default-null.jpg" class="img-circle" height="220px")
+          p
+            label  用户id : &nbsp;
+            span#user_id #{query._id}
+          p
+            label 用户name
+            input.form-control(name="name" value=query.name)
+          p
+            label 性别
+            select.form-control(name='gender')
+              if query.gender == 0 || !query.gender
+                option(value=0 selected) 女
+                option(value=1) 男
+              else if query.gender == 1
+                option(value=0) 女
+                option(value=1 selected) 男
+          p
+            label 居住省
+            select.form-control(name='province')
+              option(value=-1) 不限
+              - each one,i in provinces
+                option(value=one.name selected=query.province == one.name) #{one.name}
+          p
+            label 居住市
+            select.form-control(name='city')
+              option(value=-1) 不限
+          p
+            label 年龄
+            input.form-control(name="age" value=query.age)
+          p
+            label 生日
+            input.form-control(name="birthday" value=query.birthday)
+          p
+            label 身高
+            input.form-control(name="height" value=query.height)
+          p
+            label 体重
+            input.form-control(name="weight" value=query.weight)
+          p
+            label 最迷人的部位
+            input.form-control(name="attractive_part" value=query.attractive_part)
+          p
+            label QQ/微信
+            input.form-control(name="qq" value=query.qq)
+          p
+            label 三围
+            input.form-control(name="body" value=query.body)
+          p
+            label 学历
+            select.form-control(name='education')
+              - jade_education = ['大专', '本科', '硕士及以上', '高中及中专', '初中及以下']
+              option(value=-1) 不限
+              each item, index in jade_education
+                option(value=item selected=query.education == item) #{item}
+          p
+            label 收入
+            select.form-control(name='salary')
+              - jade_salary = ['小于2000元', '2000-5000元', '5000-10000元', '10000-20000元', '20000以上元']
+              option(value=-1) 不限
+              each item, index in jade_salary
+                option(value=item selected=query.salary == item) #{item}
+          p
+            label 籍贯省
+            select.form-control(name='native_province')
+              option(value=-1) 不限
+              - each one,i in provinces
+                option(value=one.name selected=query.native_province == one.name) #{one.name}
+          p
+            label 籍贯市
+            select.form-control(name='native_city')
+              option(value=-1) 不限
+          p
+            label 住房情况
+            select.form-control(name='house')
+              - jade_house = ['租房', '已购房', '与父母同住', '其他']
+              option(value=0) 不限
+              each item, index in jade_house
+                option(value=item selected=query.house == item) #{item}
+          p
+            label 能否接受异地恋
+            select.form-control(name='is_accept_long_distance')
+              if query.is_accept_long_distance == 0 || !query.is_accept_long_distance
+                option(value=0 selected) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_long_distance == 1
+                option(value=0) 能
+                option(value=1 selected) 不能
+                option(value=2) 看情况
+              else if query.is_accept_long_distance == 2
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2 selected) 看情况
+          p
+            label 能否接受婚前性行为
+            select.form-control(name='is_accept_sex')
+              if query.is_accept_sex == 0 || !query.is_accept_sex
+                option(value=0 selected) 能
+                option(value=1) 不能
+                option(value=2) 看情况
+              else if query.is_accept_sex == 1
+                option(value=0) 能
+                option(value=1 selected) 不能
+                option(value=2) 看情况
+              else if query.is_accept_sex == 2
+                option(value=0) 能
+                option(value=1) 不能
+                option(value=2 selected) 看情况
+          p
+            label 是否想要小孩
+            select.form-control(name='is_want_child')
+              if query.is_want_child == 0 || !query.is_want_child
+                option(value=0 selected) 想
+                option(value=1) 不想
+                option(value=2) 还没想好
+              else if query.is_want_child == 1
+                option(value=0) 想
+                option(value=1 selected) 不想
+                option(value=2) 还没想好
+              else if query.is_want_child == 2
+                option(value=0) 想
+                option(value=1) 不想
+                option(value=2 selected) 还没想好
+          p
+            label 用户状态
+            select.form-control(name='user_type')
+              if query.user_type == 0
+                option(value=1) 真实用户
+                option(value=0 selected) 假用户
+              else if query.user_type == 1
+                option(value=1 selected) 真实用户
+                option(value=0) 假用户
+          p
+            label vip
+            select.form-control(name='vip')
+              if query.vip == 0 || !query.vip
+                option(value=1) vip用户
+                option(value=0 selected) 普通用户
+              else if query.vip == 1
+                option(value=1 selected) vip用户
+                option(value=0) 普通用户
+          p
+            label 内心独白
+            textarea(class="form-control" rows="3" name="words") #{query.words}
+          p
+            label 排序值
+            input.form-control(name="sortorder" value=query.sortorder)
+          p
+            label 注册时间 : &nbsp;
+            span#reg_times #{query._create_time}
+          p
+            label 来源 : &nbsp;
+            span#reg_form #{query.channelId}
+          p
+            label 图片墙
+            br
+            if query.photos
+              each one,index in query.photos
+                a(href=one target="_blank") 
+                  img(src=one class="img-thumbnail")
+          div.sub-test
+            input(type="hidden" value=query.city  name="selected_city")
+            input(type="hidden" value=query._id  name="id")
+            input(type="hidden" value=query.native_city name="selected_n_city")
+            button(type="button" class="btn btn-primary btn-lg btn-block user-detail-update") 修改
+            button(type="button" class="btn btn-danger btn-lg user-detail-delete btn-block" data-id="#{query._id}") 删除
