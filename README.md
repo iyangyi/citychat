@@ -1,4 +1,7 @@
 # citychat
-nodejs平台下给app提供接口服务。
+
+nodejs搭建的app 接口平台
 
 用到 nodejs + qiniu + mongodb + rongclound
+
+
